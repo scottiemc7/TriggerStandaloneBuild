@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="triggerstandalonebuildplugin" default="all">
+  
+  
+  <property file="triggerstandalonebuild.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="128m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/SCCS/**"/>
+    <exclude name="**/RCS/**"/>
+    <exclude name="**/rcs/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/.pyc/**"/>
+    <exclude name="**/.pyo/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/*.lib/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/.bundle/**"/>
+    <exclude name="**/*.rbc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.zip"/>
+    <include name="*.apk"/>
+    <include name="*.war"/>
+    <include name="*.egg"/>
+    <include name="*.ear"/>
+    <include name="*.ane"/>
+    <include name="*.swc"/>
+    <include name="*.jar"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+  </patternset>
+  
+  
+  <!-- Project Libraries -->
+  
+  <path id="library.agent-api.classpath">
+    <pathelement location="${path.variable.teamcitydistribution}/devPackage/agent-api.jar"/>
+  </path>
+  
+  <path id="library.common-api.classpath">
+    <pathelement location="${path.variable.teamcitydistribution}/devPackage/common-api.jar"/>
+  </path>
+  
+  <path id="library.server-api.classpath">
+    <pathelement location="${path.variable.teamcitydistribution}/devPackage/server-api.jar"/>
+  </path>
+  
+  <path id="library.server-common-api.classpath">
+    <pathelement location="${path.variable.teamcitydistribution}/devPackage/server-common-api.jar"/>
+  </path>
+  
+  <path id="library.server-vcs-api.classpath">
+    <pathelement location="${path.variable.teamcitydistribution}/devPackage/server-vcs-api.jar"/>
+  </path>
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module Common -->
+  
+  <dirname property="module.common.basedir" file="${ant.file}"/>
+  
+  
+  
+  <property name="compiler.args.common" value="${compiler.args}"/>
+  
+  <property name="common.output.dir" value="${module.common.basedir}/out/production/Common"/>
+  <property name="common.testoutput.dir" value="${module.common.basedir}/out/test/Common"/>
+  
+  <path id="common.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="common.module.production.classpath"/>
+  
+  <path id="common.runtime.production.module.classpath">
+    <pathelement location="${common.output.dir}"/>
+  </path>
+  
+  <path id="common.module.classpath">
+    <pathelement location="${common.output.dir}"/>
+  </path>
+  
+  <path id="common.runtime.module.classpath">
+    <pathelement location="${common.testoutput.dir}"/>
+    <pathelement location="${common.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.common">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.common">
+    <patternset refid="excluded.from.module.common"/>
+  </patternset>
+  
+  <path id="common.module.sourcepath">
+    <dirset dir="${module.common.basedir}/Common">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.common" depends="compile.module.common.production,compile.module.common.tests" description="Compile module Common"/>
+  
+  <target name="compile.module.common.production" description="Compile module Common; production classes">
+    <mkdir dir="${common.output.dir}"/>
+    <javac destdir="${common.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+      <compilerarg line="${compiler.args.common}"/>
+      <bootclasspath refid="common.module.bootclasspath"/>
+      <classpath refid="common.module.production.classpath"/>
+      <src refid="common.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.common"/>
+    </javac>
+    
+    <copy todir="${common.output.dir}">
+      <fileset dir="${module.common.basedir}/Common/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.common.tests" depends="compile.module.common.production" description="compile module Common; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.common" description="cleanup module">
+    <delete dir="${common.output.dir}"/>
+    <delete dir="${common.testoutput.dir}"/>
+  </target>
+  
+  
+  <!-- Module TriggerStandaloneBuildPlugin -->
+  
+  <dirname property="module.triggerstandalonebuildplugin.basedir" file="${ant.file}"/>
+  
+  
+  
+  <property name="compiler.args.triggerstandalonebuildplugin" value="${compiler.args}"/>
+  
+  <property name="triggerstandalonebuildplugin.output.dir" value="${module.triggerstandalonebuildplugin.basedir}/out/production/TriggerStandaloneBuildPlugin"/>
+  <property name="triggerstandalonebuildplugin.testoutput.dir" value="${module.triggerstandalonebuildplugin.basedir}/out/test/TriggerStandaloneBuildPlugin"/>
+  
+  <path id="triggerstandalonebuildplugin.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="triggerstandalonebuildplugin.module.production.classpath"/>
+  
+  <path id="triggerstandalonebuildplugin.runtime.production.module.classpath">
+    <pathelement location="${triggerstandalonebuildplugin.output.dir}"/>
+  </path>
+  
+  <path id="triggerstandalonebuildplugin.module.classpath">
+    <pathelement location="${triggerstandalonebuildplugin.output.dir}"/>
+  </path>
+  
+  <path id="triggerstandalonebuildplugin.runtime.module.classpath">
+    <pathelement location="${triggerstandalonebuildplugin.testoutput.dir}"/>
+    <pathelement location="${triggerstandalonebuildplugin.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.triggerstandalonebuildplugin">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.triggerstandalonebuildplugin">
+    <patternset refid="excluded.from.module.triggerstandalonebuildplugin"/>
+  </patternset>
+  
+  
+  <target name="compile.module.triggerstandalonebuildplugin" depends="compile.module.triggerstandalonebuildplugin.production,compile.module.triggerstandalonebuildplugin.tests" description="Compile module TriggerStandaloneBuildPlugin"/>
+  
+  <target name="compile.module.triggerstandalonebuildplugin.production" description="Compile module TriggerStandaloneBuildPlugin; production classes"/>
+  
+  <target name="compile.module.triggerstandalonebuildplugin.tests" depends="compile.module.triggerstandalonebuildplugin.production" description="compile module TriggerStandaloneBuildPlugin; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.triggerstandalonebuildplugin" description="cleanup module">
+    <delete dir="${triggerstandalonebuildplugin.output.dir}"/>
+    <delete dir="${triggerstandalonebuildplugin.testoutput.dir}"/>
+  </target>
+  
+  
+  <!-- Module Agent -->
+  
+  <dirname property="module.agent.basedir" file="${ant.file}"/>
+  
+  
+  
+  <property name="compiler.args.agent" value="${compiler.args}"/>
+  
+  <property name="agent.output.dir" value="${module.agent.basedir}/out/production/Agent"/>
+  <property name="agent.testoutput.dir" value="${module.agent.basedir}/out/test/Agent"/>
+  
+  <path id="agent.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="agent.module.production.classpath">
+    <path refid="library.agent-api.classpath"/>
+    <path refid="library.common-api.classpath"/>
+    <path refid="library.server-api.classpath"/>
+    <path refid="library.server-common-api.classpath"/>
+    <path refid="library.server-vcs-api.classpath"/>
+    <pathelement location="${common.output.dir}"/>
+  </path>
+  
+  <path id="agent.runtime.production.module.classpath">
+    <pathelement location="${agent.output.dir}"/>
+    <path refid="library.agent-api.classpath"/>
+    <path refid="library.common-api.classpath"/>
+    <path refid="library.server-api.classpath"/>
+    <path refid="library.server-common-api.classpath"/>
+    <path refid="library.server-vcs-api.classpath"/>
+    <path refid="common.runtime.production.module.classpath"/>
+  </path>
+  
+  <path id="agent.module.classpath">
+    <pathelement location="${agent.output.dir}"/>
+    <path refid="library.agent-api.classpath"/>
+    <path refid="library.common-api.classpath"/>
+    <path refid="library.server-api.classpath"/>
+    <path refid="library.server-common-api.classpath"/>
+    <path refid="library.server-vcs-api.classpath"/>
+    <pathelement location="${common.testoutput.dir}"/>
+    <pathelement location="${common.output.dir}"/>
+  </path>
+  
+  <path id="agent.runtime.module.classpath">
+    <pathelement location="${agent.testoutput.dir}"/>
+    <pathelement location="${agent.output.dir}"/>
+    <path refid="library.agent-api.classpath"/>
+    <path refid="library.common-api.classpath"/>
+    <path refid="library.server-api.classpath"/>
+    <path refid="library.server-common-api.classpath"/>
+    <path refid="library.server-vcs-api.classpath"/>
+    <path refid="common.runtime.module.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.agent">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.agent">
+    <patternset refid="excluded.from.module.agent"/>
+  </patternset>
+  
+  <path id="agent.module.sourcepath">
+    <dirset dir="${module.agent.basedir}/Agent">
+      <include name="src"/>
+      <include name="bin"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.agent" depends="compile.module.agent.production,compile.module.agent.tests" description="Compile module Agent"/>
+  
+  <target name="compile.module.agent.production" depends="compile.module.common" description="Compile module Agent; production classes">
+    <mkdir dir="${agent.output.dir}"/>
+    <javac destdir="${agent.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+      <compilerarg line="${compiler.args.agent}"/>
+      <bootclasspath refid="agent.module.bootclasspath"/>
+      <classpath refid="agent.module.production.classpath"/>
+      <src refid="agent.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.agent"/>
+    </javac>
+    
+    <copy todir="${agent.output.dir}">
+      <fileset dir="${module.agent.basedir}/Agent/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.agent.basedir}/Agent/bin">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.agent.tests" depends="compile.module.agent.production" description="compile module Agent; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.agent" description="cleanup module">
+    <delete dir="${agent.output.dir}"/>
+    <delete dir="${agent.testoutput.dir}"/>
+  </target>
+  
+  
+  <!-- Module Server -->
+  
+  <dirname property="module.server.basedir" file="${ant.file}"/>
+  
+  
+  
+  <property name="compiler.args.server" value="${compiler.args}"/>
+  
+  <property name="server.output.dir" value="${module.server.basedir}/out/production/Server"/>
+  <property name="server.testoutput.dir" value="${module.server.basedir}/out/test/Server"/>
+  
+  <path id="server.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="server.module.production.classpath">
+    <path refid="library.common-api.classpath"/>
+    <path refid="library.server-api.classpath"/>
+    <path refid="library.server-common-api.classpath"/>
+    <pathelement location="${common.output.dir}"/>
+  </path>
+  
+  <path id="server.runtime.production.module.classpath">
+    <pathelement location="${server.output.dir}"/>
+    <path refid="library.common-api.classpath"/>
+    <path refid="library.server-api.classpath"/>
+    <path refid="library.server-common-api.classpath"/>
+    <path refid="common.runtime.production.module.classpath"/>
+  </path>
+  
+  <path id="server.module.classpath">
+    <pathelement location="${server.output.dir}"/>
+    <path refid="library.common-api.classpath"/>
+    <path refid="library.server-api.classpath"/>
+    <path refid="library.server-common-api.classpath"/>
+    <pathelement location="${common.testoutput.dir}"/>
+    <pathelement location="${common.output.dir}"/>
+  </path>
+  
+  <path id="server.runtime.module.classpath">
+    <pathelement location="${server.testoutput.dir}"/>
+    <pathelement location="${server.output.dir}"/>
+    <path refid="library.common-api.classpath"/>
+    <path refid="library.server-api.classpath"/>
+    <path refid="library.server-common-api.classpath"/>
+    <path refid="common.runtime.module.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.server">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.server">
+    <patternset refid="excluded.from.module.server"/>
+  </patternset>
+  
+  <path id="server.module.sourcepath">
+    <dirset dir="${module.server.basedir}/Server">
+      <include name="src"/>
+      <include name="resources"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.server" depends="compile.module.server.production,compile.module.server.tests" description="Compile module Server"/>
+  
+  <target name="compile.module.server.production" depends="compile.module.common" description="Compile module Server; production classes">
+    <mkdir dir="${server.output.dir}"/>
+    <javac destdir="${server.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+      <compilerarg line="${compiler.args.server}"/>
+      <bootclasspath refid="server.module.bootclasspath"/>
+      <classpath refid="server.module.production.classpath"/>
+      <src refid="server.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.server"/>
+    </javac>
+    
+    <copy todir="${server.output.dir}">
+      <fileset dir="${module.server.basedir}/Server/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.server.basedir}/Server/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.server.tests" depends="compile.module.server.production" description="compile module Server; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.server" description="cleanup module">
+    <delete dir="${server.output.dir}"/>
+    <delete dir="${server.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.common, clean.module.triggerstandalonebuildplugin, clean.module.agent, clean.module.server" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.common, compile.module.triggerstandalonebuildplugin, compile.module.agent, compile.module.server" description="build all modules"/>
+  
+  <target name="all" depends="build.modules" description="build all"/>
+</project>

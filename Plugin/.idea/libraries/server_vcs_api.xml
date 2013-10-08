@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="server-vcs-api">
+    <CLASSES>
+      <root url="jar://$TeamCityDistribution$/devPackage/server-vcs-api.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

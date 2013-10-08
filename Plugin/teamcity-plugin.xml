@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<teamcity-plugin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:noNamespaceSchemaLocation="urn:shemas-jetbrains-com:teamcity-plugin-v1-xml">
+  <info>
+    <name>triggerStandaloneBuild</name>
+    <display-name>Trigger.io Standalone Build Plugin</display-name>
+    <version>@version@</version>
+    <description>Runner for using the Trigger.io Standalone Build API</description>
+
+    <vendor>
+      <name>Scott McClure</name>
+      <url>http://www.scottrmcclure.com</url>
+    </vendor>
+  </info>
+</teamcity-plugin>

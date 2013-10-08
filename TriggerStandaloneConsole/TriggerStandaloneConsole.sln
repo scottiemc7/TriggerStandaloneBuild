@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Windows Desktop
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TriggerStandaloneConsole", "TriggerStandaloneConsole\TriggerStandaloneConsole.csproj", "{F70D3CD5-4DEB-45C1-BF7D-82C2D066DC02}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F70D3CD5-4DEB-45C1-BF7D-82C2D066DC02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F70D3CD5-4DEB-45C1-BF7D-82C2D066DC02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F70D3CD5-4DEB-45C1-BF7D-82C2D066DC02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F70D3CD5-4DEB-45C1-BF7D-82C2D066DC02}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
