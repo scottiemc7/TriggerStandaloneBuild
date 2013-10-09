@@ -26,7 +26,7 @@ public class TSABuildType extends RunType {
 
     @Override
     public String getDescription() {
-        return "Runner for using the Trigger.io Stanalone Build API";
+        return "Runner for using the Trigger.io Standalone Build API";
     }
 
     @Override

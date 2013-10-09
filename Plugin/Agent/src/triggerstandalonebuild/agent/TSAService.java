@@ -5,11 +5,7 @@ import jetbrains.buildServer.agent.AgentRunningBuild;
 import jetbrains.buildServer.agent.artifacts.ArtifactsWatcher;
 import jetbrains.buildServer.agent.runner.CommandLineBuildService;
 import jetbrains.buildServer.agent.runner.SimpleProgramCommandLine;
-import jetbrains.buildServer.util.StringUtil;
-import sun.misc.BASE64Encoder;
 import triggerstandalonebuild.common.iPluginConstants;
-
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -36,30 +32,27 @@ public class TSAService extends CommandLineBuildService {
         Map<String,String> parameters = getBuild().getRunnerParameters();
         List<String> result = new ArrayList<String>();
 
-        result.add(parameters.get(iPluginConstants.PROPERTYKEY_EMAIL));
-        result.add(parameters.get(iPluginConstants.PROPERTYKEY_PASSWORD));
-        result.add(parameters.get(iPluginConstants.PROPERTYKEY_PLATFORM_ANDROID));
-/*
-        BASE64Encoder encoder = new BASE64Encoder();
+        result.add("--email=" + parameters.get(iPluginConstants.PROPERTYKEY_EMAIL));
+        result.add("--password=" + parameters.get(iPluginConstants.PROPERTYKEY_PASSWORD));
+        result.add("--src=\"" + getBuild().getCheckoutDirectory() + parameters.get(iPluginConstants.PROPERTYKEY_SRCPATH) + "\"");
+        result.add("--download=\"" + getBuild().getCheckoutDirectory() + "\"");
+        String android = parameters.get(iPluginConstants.PROPERTYKEY_PLATFORM_ANDROID);
+        if(android != null && android.compareToIgnoreCase("true") == 0) {
+            result.add("--android");
+            result.add("--keystore=\"" + parameters.get(iPluginConstants.PROPERTYKEY_ANDROIDKEYSTOREPATH) + "\"");
+            result.add("--keystorepass=" + parameters.get(iPluginConstants.PROPERTYKEY_ANDROIDKEYSTOREPASSWORD));
+            result.add("--keyalias=" + parameters.get(iPluginConstants.PROPERTYKEY_ANDROIDKEYALIAS));
+            result.add("--keypass=" + parameters.get(iPluginConstants.PROPERTYKEY_ANDROIDKEYPASSWORD));
+        }//end if
 
-        String program = null;
-        try {
-            program = encoder.encode(parameters.get(PluginConstants.PROPERTY_SCRIPT_CONTENT).getBytes("UTF8"));
-        } catch (UnsupportedEncodingException e) {
-            // are you sure you don't know UTF8?
-        }
+        String ios = parameters.get(iPluginConstants.PROPERTYKEY_PLATFORM_IOS);
+        if(ios != null && ios.compareToIgnoreCase("true") == 0) {
+            result.add("--ios");
+            result.add("--cert=\"" + parameters.get(iPluginConstants.PROPERTYKEY_IOSCERTIFICATEPATH) + "\"");
+            result.add("--certpass=" + parameters.get(iPluginConstants.PROPERTYKEY_IOSCERTIFICATEPASSWORD));
+            result.add("--profile=\"" + parameters.get(iPluginConstants.PROPERTYKEY_IOSPROFILEPATH) + "\"");
+        }//end if
 
-        result.add(program);
-
-        result.add(PluginConstants.OUTPUT_PATH);
-        result.add(PluginConstants.OUTPUT_FILE_NAME);
-
-        String namespaces = parameters.get(PluginConstants.PROPERTY_SCRIPT_NAMESPACES);
-        result.add(namespaces == null || StringUtil.isEmpty(namespaces) ? ";" : StringUtil.convertLineSeparators(namespaces, ";"));
-
-        String references = parameters.get(PluginConstants.PROPERTY_SCRIPT_REFERENCES);
-        result.add(references == null || StringUtil.isEmpty(references) ? ";" : StringUtil.convertLineSeparators(references, ";"));
-*/
         return result;
     }
 }

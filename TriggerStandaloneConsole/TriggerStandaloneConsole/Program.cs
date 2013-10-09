@@ -65,18 +65,27 @@ namespace TriggerStandaloneConsole
 			nameValues.Add("password", password);
 
 			//Android
-			namePaths.Add("and_keystore", options.AndroidKeystorePath);
-			nameValues.Add("and_keypass", options.AndroidKeyPass);
-			nameValues.Add("and_storepass", options.AndroidKeystorePass);
-			nameValues.Add("and_keyalias", options.AndroidKeyAlias);
+			if (options.Android)
+			{
+				namePaths.Add("and_keystore", options.AndroidKeystorePath);
+				nameValues.Add("and_keypass", options.AndroidKeyPass);
+				nameValues.Add("and_storepass", options.AndroidKeystorePass);
+				nameValues.Add("and_keyalias", options.AndroidKeyAlias);
+			}
 
 			//iOS
-			namePaths.Add("ios_certificate", options.iOSCertificatePath);
-			namePaths.Add("ios_profile", options.iOSProfilePath);
-			nameValues.Add("ios_password", options.iOSCertificatePass);
+			if (options.iOS)
+			{
+				namePaths.Add("ios_certificate", options.iOSCertificatePath);
+				namePaths.Add("ios_profile", options.iOSProfilePath);
+				nameValues.Add("ios_password", options.iOSCertificatePass);
+			}
 
 			//zip our src directory
 			String srcZipPath = Path.Combine(options.DownloadPath, "src.zip");
+			if (File.Exists(srcZipPath))
+				File.Delete(srcZipPath);
+
 			using (ZipFile zip = new ZipFile())
 			{
 				zip.AddDirectory(options.SrcPath);

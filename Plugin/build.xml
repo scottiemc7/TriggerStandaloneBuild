@@ -19,12 +19,16 @@
             <agent-additional-files>
                 <fileset dir="${agent.output.dir}" id="agent-additional-files">
                     <include name="**/*.exe"></include>
+                    <include name="**/*.dll"></include>
                 </fileset>
             </agent-additional-files>
         </package.teamcity.plugin>
     </target>
 
-    <target name="define.version" depends="define.version.if.under.teamcity">
+    <target name="define.version">
+        <property name="plugin.version" value="1.0.0"/>
+    </target>
+    <!--<target name="define.version" depends="define.version.if.under.teamcity">
         <tstamp>
             <format property="current.time" pattern="yyyyMMddHHmm"/>
         </tstamp>
@@ -33,7 +37,7 @@
 
     <target name="define.version.if.under.teamcity" if="build.number">
         <property name="plugin.version" value="${build.number}"/>
-    </target>
+    </target>   -->
 
     <!--<target name="dist" depends="all" description="Same as 'all'"/>
     <target name="all" depends="check.teamcitydistribution,package"

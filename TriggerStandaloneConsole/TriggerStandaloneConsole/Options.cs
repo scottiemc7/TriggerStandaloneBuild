@@ -46,7 +46,7 @@ namespace TriggerStandaloneConsole
 		[Option('h', "certpass", Required = false, HelpText = "iOS Certificate Password.")]
 		public string iOSCertificatePass { get; set; }
 
-		[Option('i', "profile", Required = false, HelpText = "iOS Provisioning Profile Path.")]
+		[Option('n', "profile", Required = false, HelpText = "iOS Provisioning Profile Path.")]
 		public string iOSProfilePath { get; set; }
 
 		[ParserState]
