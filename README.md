@@ -4,7 +4,10 @@ A [TeamCity](http://www.jetbrains.com/teamcity/ "TeamCity") plugin for the [Trig
 
     Scott McClure
     scottie_DOT_mcclure@gmail.com
-    
+  
+## Agent Requirements:
+Windows with .Net Framework 4.5
+
 ## Installation:
 1.Download `triggerstandalone.zip`  
 2.Shutdown the TeamCity server.  
