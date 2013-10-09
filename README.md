@@ -5,14 +5,17 @@ A [TeamCity](http://www.jetbrains.com/teamcity/ "TeamCity") plugin for the [Trig
     Scott McClure
     scottie_DOT_mcclure@gmail.com
     
-## INSTALLATION:
+## Installation:
 1.Download `triggerstandalone.zip`  
 2.Shutdown the TeamCity server.  
 3.Copy the zip archive with the plugin into the <TeamCity Data Directory>/plugins directory.  
-4.Start the TeamCity server: the plugin files will be unpacked and processed automatically  
+4.Start the TeamCity server: the plugin files will be unpacked and processed automatically.  
 
-## LICENSE:
+## Build:
+1.Update path.variable.teamcitydistribution property in `build.properties` to point to your local TeamCity install  
+2.Run Ant against the "dist" target.
 
+## License:
 The MIT License (MIT)
 
 Copyright (c) 2013 Scott R McClure
