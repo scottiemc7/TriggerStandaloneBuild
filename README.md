@@ -4,7 +4,9 @@ A [TeamCity](http://www.jetbrains.com/teamcity/ "TeamCity") plugin for the [Trig
 
     Scott McClure
     scottie_DOT_mcclure@gmail.com
-  
+    
+![Screenshot png](https://github.com/scottiemc7/TriggerStandaloneBuild/raw/master/Screenshot.png "Standalone Build Runner")
+
 ## Agent Requirements:
 Windows with .Net Framework 4.5
 
