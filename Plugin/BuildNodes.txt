@@ -1,0 +1,1 @@
+-Add target="1.6" to the Ant javac components, so we can build for the most popular java version

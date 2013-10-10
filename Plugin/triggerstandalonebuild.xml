@@ -132,7 +132,7 @@
   
   <target name="compile.module.common.production" description="Compile module Common; production classes">
     <mkdir dir="${common.output.dir}"/>
-    <javac destdir="${common.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+    <javac target="1.6" destdir="${common.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
       <compilerarg line="${compiler.args.common}"/>
       <bootclasspath refid="common.module.bootclasspath"/>
       <classpath refid="common.module.production.classpath"/>
@@ -285,7 +285,7 @@
   
   <target name="compile.module.agent.production" depends="compile.module.common" description="Compile module Agent; production classes">
     <mkdir dir="${agent.output.dir}"/>
-    <javac destdir="${agent.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+    <javac target="1.6" destdir="${agent.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
       <compilerarg line="${compiler.args.agent}"/>
       <bootclasspath refid="agent.module.bootclasspath"/>
       <classpath refid="agent.module.production.classpath"/>
@@ -382,7 +382,7 @@
   
   <target name="compile.module.server.production" depends="compile.module.common" description="Compile module Server; production classes">
     <mkdir dir="${server.output.dir}"/>
-    <javac destdir="${server.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+    <javac target="1.6" destdir="${server.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
       <compilerarg line="${compiler.args.server}"/>
       <bootclasspath refid="server.module.bootclasspath"/>
       <classpath refid="server.module.production.classpath"/>
