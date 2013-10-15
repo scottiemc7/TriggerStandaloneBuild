@@ -49,6 +49,12 @@ namespace TriggerStandaloneConsole
 		[Option('n', "profile", Required = false, HelpText = "iOS Provisioning Profile Path.")]
 		public string iOSProfilePath { get; set; }
 
+		[Option('o', "androidignore", Required = false, HelpText = "List of directories to ignore when building for Android. Relative to src, seperated by ;")]
+		public string AndroidIgnore { get; set; }
+
+		[Option('q', "iosignore", Required = false, HelpText = "List of directories to ignore when building for iOS. Relative to src, seperated by ;")]
+		public string iOSIgnore { get; set; }
+
 		[ParserState]
 		public IParserState LastParserState { get; set; }
 

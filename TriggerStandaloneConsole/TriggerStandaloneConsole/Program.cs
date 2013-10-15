@@ -13,6 +13,9 @@ namespace TriggerStandaloneConsole
 {
 	class Program
 	{
+		static const string BUILDURL = "https://trigger.io/standalone/package";
+		static const string MONITORURL = "https://trigger.io/standalone/track/package";
+
 		static void Main(string[] args)
 		{
 			//parse and validate our command line args
@@ -50,9 +53,50 @@ namespace TriggerStandaloneConsole
 				Console.WriteLine("At least one iOS required argument is missing or file could not be found");
 				return;
 			}//end if
+			
+			BuildPlatform platforms = (options.Android ? BuildPlatform.Android : 0) | (options.iOS ? BuildPlatform.iOS : 0);
+			IStandaloneBuilder builder = new StandaloneHttpBuilder(new HttpWebRequestFactory(), BUILDURL, MONITORURL, options.Email, options.Password);
+			IZip zipper = new DotNetZipAdapter();
+
+			//load our resources
+			PlatformResources resources = new PlatformResources();
+			if((platforms & BuildPlatform.Android) == BuildPlatform.Android) {
+
+				resources.AndroidKeyPassword = options.AndroidKeyPass;
+				resources.AndroidKeystorePassword = options.AndroidKeystorePass;
+				resources.AndroidKeystore = new MemoryStream(File.ReadAllBytes(options.AndroidKeystorePath));
+				resources.AndroidKeystoreFileName = Path.GetFileName(options.AndroidKeystorePath);
+			}
+
+			if ((platforms & BuildPlatform.iOS) == BuildPlatform.iOS)
+			{
+
+			}
+
+			//use multiple sources if we are building for more than one platform
+			//AND there are excluded dirs for either platform
+			if ((platforms & (BuildPlatform.Android | BuildPlatform.iOS)) == (BuildPlatform.Android | BuildPlatform.iOS) &&
+				(!String.IsNullOrEmpty(options.iOSIgnore) || !String.IsNullOrEmpty(options.AndroidIgnore)))
+			{
+				//use multiple sources (multiple builds)
+				MemoryStream andZip = zipper.ZipDirectory(options.SrcPath, options.AndroidIgnore);
+				MemoryStream iosZip = zipper.ZipDirectory(options.SrcPath, options.iOSIgnore);
+			}
+			else
+			{
+				//use one source, single build
+				MemoryStream zip = zipper.ZipDirectory(options.SrcPath, null);
+			}//end ig
+
+
+			//builder.BuildForPlatforms(
+
+
+
+
 
 			const string boundary = "---------------------------AaB03x";
-			const string url = "https://trigger.io/standalone/package";
+			
 
 			string email = options.Email;
 			string password = options.Password;
