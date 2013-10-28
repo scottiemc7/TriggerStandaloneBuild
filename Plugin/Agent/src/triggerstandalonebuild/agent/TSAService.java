@@ -43,6 +43,9 @@ public class TSAService extends CommandLineBuildService {
             result.add("--keystorepass=" + parameters.get(iPluginConstants.PROPERTYKEY_ANDROIDKEYSTOREPASSWORD));
             result.add("--keyalias=" + parameters.get(iPluginConstants.PROPERTYKEY_ANDROIDKEYALIAS));
             result.add("--keypass=" + parameters.get(iPluginConstants.PROPERTYKEY_ANDROIDKEYPASSWORD));
+            String ignore = parameters.get(iPluginConstants.PROPERTYKEY_ANDROIDIGNOREPATH);
+            if(ignore != null && ignore.compareToIgnoreCase("null") != 0 && ignore.length() > 0)
+                result.add("--androidignore=\"" + parameters.get(iPluginConstants.PROPERTYKEY_ANDROIDIGNOREPATH) + "\"");
         }//end if
 
         String ios = parameters.get(iPluginConstants.PROPERTYKEY_PLATFORM_IOS);
@@ -51,6 +54,9 @@ public class TSAService extends CommandLineBuildService {
             result.add("--cert=\"" + parameters.get(iPluginConstants.PROPERTYKEY_IOSCERTIFICATEPATH) + "\"");
             result.add("--certpass=" + parameters.get(iPluginConstants.PROPERTYKEY_IOSCERTIFICATEPASSWORD));
             result.add("--profile=\"" + parameters.get(iPluginConstants.PROPERTYKEY_IOSPROFILEPATH) + "\"");
+            String ignore = parameters.get(iPluginConstants.PROPERTYKEY_IOSIGNOREPATH);
+            if(ignore != null && ignore.compareToIgnoreCase("null") != 0 && ignore.length() > 0)
+                result.add("--iosignore=\"" + parameters.get(iPluginConstants.PROPERTYKEY_IOSIGNOREPATH) + "\"");
         }//end if
 
         return result;

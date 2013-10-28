@@ -95,6 +95,17 @@
 
 <tr>
     <th>
+        <label for="tsa.andignore">Android ignore paths: </label>
+    </th>
+    <td>
+        <props:textProperty name="tsa.andignore" size="75" />
+        <span class="error" id="error_tsa.andignore"></span>
+        <span class="smallNote">Paths to directories to exclude from Android builds, relative to the src directory. Multiple paths can be separated by a semi-colon.</span>
+    </td>
+</tr>
+
+<tr>
+    <th>
         <label for="tsa.ioscert">iOS certficate path: </label>
     </th>
     <td>
@@ -123,6 +134,17 @@
         <props:textProperty name="tsa.iosprofile" size="75" />
         <span class="error" id="error_tsa.iosprofile"></span>
         <span class="smallNote">A path to the .mobileprovision file you have downloaded from the iOS provisioning portal.</span>
+    </td>
+</tr>
+
+<tr>
+    <th>
+        <label for="tsa.iosignore">iOS ignore paths: </label>
+    </th>
+    <td>
+        <props:textProperty name="tsa.iosignore" size="75" />
+        <span class="error" id="error_tsa.iosignore"></span>
+        <span class="smallNote">Paths to directories to exclude from iOS builds, relative to the src directory. Multiple paths can be separated by a semi-colon.</span>
     </td>
 </tr>
 
