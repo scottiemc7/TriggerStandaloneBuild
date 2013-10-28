@@ -35,10 +35,13 @@ namespace TriggerStandaloneConsoleTest
 
 			//zip but exclude some of the dirs
 			IZip zip = new DotNetZipAdapter();
-			using (MemoryStream ms = zip.ZipDirectory(zipDir, String.Format("{0};{1};{2}", "\\testDir1", "testDir3", "testDir2\\testDir4")))
+			using (MemoryStream ms = zip.ZipDirectory(zipDir, String.Format("{0};{1};{2}", "\\testDir1", "/testDir3", "/testDir2/testDir4")))
 			{
 				string zipPath = Path.Combine(TestContext.TestDir, "test.zip");
-				File.WriteAllBytes(zipPath, ms.GetBuffer());
+				ms.Position = 0;
+				byte[] buff = new byte[ms.Length];
+				ms.Read(buff, 0, buff.Length);
+				File.WriteAllBytes(zipPath, buff);
 
 				//make sure testDir2 and testDir2//testDir3 are only dir in zip file
 				using (ZipFile z = new ZipFile(zipPath))

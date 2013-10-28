@@ -28,14 +28,28 @@ namespace TriggerStandaloneConsole
 			_monitorURL = monitorURL;
 		}
 
+		public event ProgressEventHandler ProgressEvent;
+		private void FireProgressEvent(string msg)
+		{
+			if (ProgressEvent != null)
+				ProgressEvent(msg);
+		}
+
 		public Dictionary<BuildPlatform, System.IO.MemoryStream> BuildForPlatforms(BuildPlatform platforms, MemoryStream source, PlatformResources resources)
 		{
+			String platformString = "";
 			if ((platforms & (BuildPlatform.Android | BuildPlatform.iOS)) == (BuildPlatform.Android | BuildPlatform.iOS))
-				Trace.TraceInformation("Building for Android and iOS");
+				//Trace.TraceInformation("Building for Android and iOS");
+				//FireProgressEvent("Begin build iOS & Android", ProgressStatus.BEGIN);
+				platformString = "Android & iOS";
 			else if ((platforms & BuildPlatform.Android) == BuildPlatform.Android)
-				Trace.TraceInformation("Building for Android");
+				//Trace.TraceInformation("Building for Android");
+				//FireProgressEvent("Begin build Android", ProgressStatus.BEGIN);
+				platformString = "Android";
 			else if ((platforms & BuildPlatform.iOS) == BuildPlatform.iOS)
-				Trace.TraceInformation("Building for iOS");
+				//Trace.TraceInformation("Building for iOS");
+				//FireProgressEvent("Begin build iOS", ProgressStatus.BEGIN);
+				platformString = "iOS";
 			else
 				throw new ArgumentException("unknown platform");
 
@@ -44,12 +58,19 @@ namespace TriggerStandaloneConsole
 			request.Timeout = 600000;
 			JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
 
+			FireProgressEvent(String.Format("Uploading - {0}", platformString));
+
 			//get the url to monitor for build progress
 			string monitorURL = null;
 			using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
 			{
 				if (response.StatusCode != HttpStatusCode.OK)
-					throw new BuildFailureException();
+				{
+					String msg = String.Format("Failed to upload package. Status: {0}", response.StatusCode);
+					throw new BuildFailureException(msg);
+				}
+
+				FireProgressEvent("Upload success");
 
 				StringBuilder sb = new StringBuilder();
 				using (StreamReader r = new StreamReader(response.GetResponseStream()))
@@ -65,6 +86,8 @@ namespace TriggerStandaloneConsole
 				monitorURL = String.Format("{0}/{1}?email={2}&password={3}", _monitorURL, postResult["id"].ToString(), _email, _password);
 			}//end using
 
+			FireProgressEvent(String.Format("Monitoring - {0}", platformString));
+
 			//monitor and get download url(s)
 			string androidDownloadURL = null, iOSDownloadURL = null;
 			while (true)
@@ -73,7 +96,10 @@ namespace TriggerStandaloneConsole
 				using (HttpWebResponse monitorResponse = monitorRequest.GetResponse() as HttpWebResponse)
 				{
 					if (monitorResponse.StatusCode != HttpStatusCode.OK)
-						throw new BuildFailureException();
+					{
+						String msg = String.Format("Unable to get monitoring url. Response: {0}", monitorResponse.StatusCode);
+						throw new BuildFailureException(msg);
+					}					
 
 					StringBuilder sb = new StringBuilder();
 					using (StreamReader r = new StreamReader(monitorResponse.GetResponseStream()))
@@ -96,26 +122,35 @@ namespace TriggerStandaloneConsole
 						break;
 					}
 					else if (String.Compare(state, "failure", true) == 0)
-					{
-						throw new BuildFailureException();
+					{						
+						String msg = "Build failure";
+						throw new BuildFailureException(msg);
 					}
 					else if (String.Compare(state, "pending", true) != 0) //not pending, unknown status
 					{
-						throw new BuildFailureException();
+						String msg = String.Format("Build failure. Unexpected state {0}", state);
+						throw new BuildFailureException(msg);
 					}//end if
 				}//end using
 			}//end while(true)
+
+			FireProgressEvent("Downloading packages");
 
 			//download the package(s)
 			Dictionary<BuildPlatform, MemoryStream> ret = new Dictionary<BuildPlatform, MemoryStream>();
 			if ((platforms & BuildPlatform.Android) == BuildPlatform.Android)
 			{
+				FireProgressEvent("Downloading - Android");
+
 				IHttpWebRequest dlReq = _requestFactory.BuildRequest("GET", androidDownloadURL);
 				dlReq.Timeout = 600000;
 				using (HttpWebResponse dlResp = (HttpWebResponse)dlReq.GetResponse())
 				{
 					if (dlResp.StatusCode != HttpStatusCode.OK)
-						throw new BuildFailureException();
+					{
+						String msg = String.Format("Unable to get Android download url. Response: {0}", dlResp.StatusCode);
+						throw new BuildFailureException(msg);
+					}
 
 					//save to memory stream
 					MemoryStream ms = new MemoryStream();
@@ -127,6 +162,8 @@ namespace TriggerStandaloneConsole
 						{
 							ms.Write(buff, 0, bytesRead);
 							totalBytesRead += bytesRead;
+
+							//FireProgressEvent(String.Format("Downloaded {0} bytes", totalBytesRead), ProgressStatus.INPROGRESS);
 						}//end while
 					}//end using
 
@@ -137,12 +174,17 @@ namespace TriggerStandaloneConsole
 
 			if ((platforms & BuildPlatform.iOS) == BuildPlatform.iOS)
 			{
+				FireProgressEvent("Downloading - iOS");
+
 				IHttpWebRequest dlReq = _requestFactory.BuildRequest("GET", iOSDownloadURL);
 				dlReq.Timeout = 600000;
 				using (HttpWebResponse dlResp = (HttpWebResponse)dlReq.GetResponse())
 				{
 					if (dlResp.StatusCode != HttpStatusCode.OK)
-						throw new BuildFailureException();
+					{
+						String msg = String.Format("Unable to get iOS download url. Response: {0}", dlResp.StatusCode);
+						throw new BuildFailureException(msg);
+					}
 
 					//save to memory stream
 					MemoryStream ms = new MemoryStream();
@@ -154,6 +196,8 @@ namespace TriggerStandaloneConsole
 						{
 							ms.Write(buff, 0, bytesRead);
 							totalBytesRead += bytesRead;
+
+							//FireProgressEvent(String.Format("Downloaded {0} bytes", totalBytesRead), ProgressStatus.INPROGRESS);
 						}//end while
 					}//end using
 
@@ -177,11 +221,13 @@ namespace TriggerStandaloneConsole
 			
 			nameValues.Add("email", _email);
 			nameValues.Add("password", _password);
+			source.Position = 0;
 			nameStreams.Add("src_zip", new Tuple<string, MemoryStream>("src.zip", source));
 
 			//Android
 			if ((platforms & BuildPlatform.Android) == BuildPlatform.Android)
 			{
+				resources.AndroidKeystore.Position = 0;
 				nameStreams.Add("and_keystore", new Tuple<string, MemoryStream>(resources.AndroidKeystoreFileName, resources.AndroidKeystore));
 				nameValues.Add("and_keypass", resources.AndroidKeyPassword);
 				nameValues.Add("and_storepass", resources.AndroidKeystorePassword);
@@ -191,6 +237,8 @@ namespace TriggerStandaloneConsole
 			//iOS
 			if ((platforms & BuildPlatform.iOS) == BuildPlatform.iOS)
 			{
+				resources.iOSCertificate.Position = 0;
+				resources.iOSProfile.Position = 0;
 				nameStreams.Add("ios_certificate", new Tuple<string, MemoryStream>(resources.iOSCertificateFileName, resources.iOSCertificate));
 				nameStreams.Add("ios_profile", new Tuple<string, MemoryStream>(resources.iOSProfileFileName, resources.iOSProfile));
 				nameValues.Add("ios_password", resources.iOSCertificatePassword);
@@ -216,7 +264,9 @@ namespace TriggerStandaloneConsole
 					byte[] buff = Encoding.UTF8.GetBytes(line);
 					s.Write(buff, 0, buff.Length);
 					//stream the file
-					buff = nameStreams[name].Item2.GetBuffer();//File.ReadAllBytes(namePaths[name]);
+					buff = new byte[nameStreams[name].Item2.Length];
+					nameStreams[name].Item2.Read(buff, 0, buff.Length);
+					//buff = nameStreams[name].Item2.GetBuffer();//File.ReadAllBytes(namePaths[name]);
 					s.Write(buff, 0, buff.Length);
 					//stream endline
 					buff = Encoding.UTF8.GetBytes(Environment.NewLine);

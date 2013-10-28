@@ -13,8 +13,8 @@ namespace TriggerStandaloneConsole
 {
 	class Program
 	{
-		static const string BUILDURL = "https://trigger.io/standalone/package";
-		static const string MONITORURL = "https://trigger.io/standalone/track/package";
+		static readonly string BUILDURL = "https://trigger.io/standalone/package";
+		static readonly string MONITORURL = "https://trigger.io/standalone/track/package";
 
 		static void Main(string[] args)
 		{
@@ -58,43 +58,93 @@ namespace TriggerStandaloneConsole
 			IStandaloneBuilder builder = new StandaloneHttpBuilder(new HttpWebRequestFactory(), BUILDURL, MONITORURL, options.Email, options.Password);
 			IZip zipper = new DotNetZipAdapter();
 
+			builder.ProgressEvent += builder_ProgressEvent;
+
 			//load our resources
 			PlatformResources resources = new PlatformResources();
-			if((platforms & BuildPlatform.Android) == BuildPlatform.Android) {
-
+			if((platforms & BuildPlatform.Android) == BuildPlatform.Android) 
+			{
 				resources.AndroidKeyPassword = options.AndroidKeyPass;
 				resources.AndroidKeystorePassword = options.AndroidKeystorePass;
 				resources.AndroidKeystore = new MemoryStream(File.ReadAllBytes(options.AndroidKeystorePath));
 				resources.AndroidKeystoreFileName = Path.GetFileName(options.AndroidKeystorePath);
-			}
+				resources.AndroidKeyAlias = options.AndroidKeyAlias;
+			}//end if
 
 			if ((platforms & BuildPlatform.iOS) == BuildPlatform.iOS)
 			{
-
-			}
+				resources.iOSCertificate = new MemoryStream(File.ReadAllBytes(options.iOSCertificatePath));
+				resources.iOSCertificatePassword = options.iOSCertificatePass;
+				resources.iOSCertificateFileName = Path.GetFileName(options.iOSCertificatePath);
+				resources.iOSProfile = new MemoryStream(File.ReadAllBytes(options.iOSProfilePath));
+				resources.iOSProfileFileName = Path.GetFileName(options.iOSProfilePath);
+			}//end if
 
 			//use multiple sources if we are building for more than one platform
 			//AND there are excluded dirs for either platform
+			ProgressBeginBuild();
+			Dictionary<BuildPlatform, MemoryStream> successfulBuilds = null;
 			if ((platforms & (BuildPlatform.Android | BuildPlatform.iOS)) == (BuildPlatform.Android | BuildPlatform.iOS) &&
 				(!String.IsNullOrEmpty(options.iOSIgnore) || !String.IsNullOrEmpty(options.AndroidIgnore)))
 			{
 				//use multiple sources (multiple builds)
-				MemoryStream andZip = zipper.ZipDirectory(options.SrcPath, options.AndroidIgnore);
-				MemoryStream iosZip = zipper.ZipDirectory(options.SrcPath, options.iOSIgnore);
+				using(MemoryStream andZip = zipper.ZipDirectory(options.SrcPath, options.AndroidIgnore))
+				using(MemoryStream iosZip = zipper.ZipDirectory(options.SrcPath, options.iOSIgnore))
+				{
+					successfulBuilds = new Dictionary<BuildPlatform, MemoryStream>();
+					try
+					{						
+						successfulBuilds.Add(BuildPlatform.Android, builder.BuildForPlatforms(BuildPlatform.Android, andZip, resources)[BuildPlatform.Android]);
+						successfulBuilds.Add(BuildPlatform.iOS, builder.BuildForPlatforms(BuildPlatform.iOS, iosZip, resources)[BuildPlatform.iOS]);
+					}
+					catch (BuildFailureException e)
+					{
+						ProgressEndBuild(false, e.Message);
+						return;
+					}//end try
+				}//end using
 			}
 			else
 			{
 				//use one source, single build
-				MemoryStream zip = zipper.ZipDirectory(options.SrcPath, null);
-			}//end ig
+				using (MemoryStream zip = zipper.ZipDirectory(options.SrcPath, null))
+				{
+					try
+					{
+						successfulBuilds = builder.BuildForPlatforms(platforms, zip, resources);
+					}
+					catch (BuildFailureException e)
+					{
+						ProgressEndBuild(false, e.Message);
+						return;
+					}
+				}
+			}//end if
 
+			try
+			{
+				if (successfulBuilds.ContainsKey(BuildPlatform.Android))
+				{
+					byte[] buff = new byte[successfulBuilds[BuildPlatform.Android].Length];
+					successfulBuilds[BuildPlatform.Android].Read(buff, 0, buff.Length);
+					File.WriteAllBytes(String.Format("{0}\\android.apk", options.DownloadPath), buff);
+				}
 
-			//builder.BuildForPlatforms(
+				if (successfulBuilds.ContainsKey(BuildPlatform.iOS))
+				{
+					byte[] buff = new byte[successfulBuilds[BuildPlatform.iOS].Length];
+					successfulBuilds[BuildPlatform.iOS].Read(buff, 0, buff.Length);
+					File.WriteAllBytes(String.Format("{0}\\ios.ipa", options.DownloadPath), buff);
+				}
+			}
+			catch (Exception e)
+			{
+				ProgressEndBuild(false, e.Message);
+			}//end try
 
+			ProgressEndBuild(true, "Build complete");
 
-
-
-
+			/*
 			const string boundary = "---------------------------AaB03x";
 			
 
@@ -346,7 +396,48 @@ namespace TriggerStandaloneConsole
 
 			if (!success)
 				Console.WriteLine("##teamcity[buildStatus status='FAILURE' text='{build.status.text}']");
-			Console.WriteLine("##teamcity[progressFinish 'End Build']");
+			Console.WriteLine("##teamcity[progressFinish 'End Build']"); */
+
+		}
+
+		private static void ProgressBeginBuild()
+		{
+			Console.WriteLine("##teamcity[progressStart '']");
+		}
+
+		private static void ProgressEndBuild(bool success, string msg)
+		{
+			Console.WriteLine(String.Format("##teamcity[progressFinish 'Build Finished With {0}']", success ? "SUCCESS" : "FAILURE"));
+			Console.WriteLine(String.Format("##teamcity[buildStatus status='{1}' text='{0}']", msg, success ? "SUCCESS" : "FAILURE"));
+		}
+
+		private static void ProgressMessage(string msg)
+		{
+			Console.WriteLine(String.Format("##teamcity[progressMessage '{0}']", msg));
+		}
+
+		static void builder_ProgressEvent(string message)
+		{
+			ProgressMessage(message);
+			/*
+			switch (status)
+			{
+				case ProgressStatus.FAIL:
+					
+					Console.WriteLine("##teamcity[progressFinish 'Build Finished With Failure']");
+					break;
+				case ProgressStatus.SUCCESS:
+					Console.WriteLine(String.Format("##teamcity[buildStatus status='SUCCESS' text='{0}']", message));
+					Console.WriteLine("##teamcity[progressFinish 'Build Finished Successfully']");
+					break;
+				case ProgressStatus.BEGIN:
+					Console.WriteLine(String.Format("##teamcity[progressStart '{0}']", message));
+					break;
+				case ProgressStatus.INPROGRESS:
+				default:
+					
+					break;
+			}//end switch*/
 		}
 	}
 }

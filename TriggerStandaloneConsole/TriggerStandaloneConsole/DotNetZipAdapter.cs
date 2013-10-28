@@ -12,17 +12,40 @@ namespace TriggerStandaloneConsole
 	{
 		public MemoryStream ZipDirectory(string path, string excludeDirs)
 		{
-			MemoryStream ms = new MemoryStream();
+			//make a copy of the directory to zip if we need to exclude directories
+			string usePath = path;
+			bool cleanPath = false;
+			if (!String.IsNullOrEmpty(excludeDirs))
+			{
+				usePath = String.Format("{0}{1}", System.IO.Path.GetTempPath(), Guid.NewGuid());
+				new Microsoft.VisualBasic.Devices.Computer().FileSystem.CopyDirectory(path, usePath);
+				cleanPath = true;
+
+				//remove excluded dirs
+				foreach (string dir in excludeDirs.Split(';'))
+				{
+					string fullPath = Path.Combine(usePath, dir.Replace("/", "\\").TrimStart('\\'));
+					Directory.Delete(fullPath, true);
+				}
+			}//end if
+
+			MemoryStream ms = null;
+			string zipPath = String.Format("{0}_{1}.zip", path.TrimEnd('\\'), Guid.NewGuid());
 			using (ZipFile zip = new ZipFile())
 			{
-				zip.AddDirectory(path);
-				if (!String.IsNullOrEmpty(excludeDirs))
-				{
-					foreach(string dir in excludeDirs.Split(';'))
-						zip.RemoveSelectedEntries("name = " + dir.TrimStart('\\', '/') + "/");
-				}//end if				
-				zip.Save(ms);
+				zip.AddDirectory(usePath);
+				
+				if (File.Exists(zipPath))
+					File.Delete(zipPath);
+
+				zip.Save(zipPath);
 			}//end using
+
+			if (cleanPath)
+				Directory.Delete(usePath, true);
+
+			ms  = new MemoryStream(File.ReadAllBytes(zipPath));
+			File.Delete(zipPath);		
 
 			return ms;
 		}

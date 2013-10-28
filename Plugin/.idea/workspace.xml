@@ -9,13 +9,13 @@
     <file path="/teamcity-plugin.xml" changelist="0259a3b6-51b8-4d76-a932-1b1d4ff42534" time="1381356537393" ignored="false" />
     <file path="/build.xml" changelist="0259a3b6-51b8-4d76-a932-1b1d4ff42534" time="1381289892880" ignored="false" />
     <file path="D:/csharprunner/plugin/csharprunner.xml" changelist="0259a3b6-51b8-4d76-a932-1b1d4ff42534" time="1380504627315" ignored="false" />
-    <file path="/TSAService.java" changelist="0259a3b6-51b8-4d76-a932-1b1d4ff42534" time="1381272020411" ignored="false" />
+    <file path="/TSAService.java" changelist="0259a3b6-51b8-4d76-a932-1b1d4ff42534" time="1382671994550" ignored="false" />
     <file path="/a.dummy" changelist="0259a3b6-51b8-4d76-a932-1b1d4ff42534" time="1380935803424" ignored="false" />
     <file path="/build-server-plugin-triggerstandalonebuild.xml" changelist="0259a3b6-51b8-4d76-a932-1b1d4ff42534" time="1380923059170" ignored="false" />
     <file path="$PROJECT_DIR$/dist/unpacked/teamcity-plugin.xml" changelist="0259a3b6-51b8-4d76-a932-1b1d4ff42534" time="1380930749916" ignored="false" />
     <file path="/tsaView.jsp" changelist="0259a3b6-51b8-4d76-a932-1b1d4ff42534" time="1381421325744" ignored="false" />
-    <file path="/tsaEdit.jsp" changelist="0259a3b6-51b8-4d76-a932-1b1d4ff42534" time="1381003755641" ignored="false" />
-    <file path="/iPluginConstants.java" changelist="0259a3b6-51b8-4d76-a932-1b1d4ff42534" time="1381007464505" ignored="false" />
+    <file path="/tsaEdit.jsp" changelist="0259a3b6-51b8-4d76-a932-1b1d4ff42534" time="1382667754001" ignored="false" />
+    <file path="/iPluginConstants.java" changelist="0259a3b6-51b8-4d76-a932-1b1d4ff42534" time="1382666376957" ignored="false" />
     <file path="/build-agent-plugin-triggerstandalonebuild.xml" changelist="0259a3b6-51b8-4d76-a932-1b1d4ff42534" time="1381023417583" ignored="false" />
     <file path="/TSAServiceFactory.java" changelist="0259a3b6-51b8-4d76-a932-1b1d4ff42534" time="1381023382858" ignored="false" />
     <file path="D:/csharprunner/plugin/agent/src/csharpRunner/agent/CSharpRunnerBuildServiceFactory.java" changelist="0259a3b6-51b8-4d76-a932-1b1d4ff42534" time="1381025400597" ignored="false" />
@@ -35,7 +35,6 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -72,6 +71,7 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -84,25 +84,25 @@
       <file leaf-file-name="build.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/build.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="31" selection-start="1322" selection-end="1322" vertical-scroll-proportion="0.0">
+            <state line="48" column="21" selection-start="2151" selection-end="2151" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="triggerstandalonebuild.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/triggerstandalonebuild.xml">
+      <file leaf-file-name="iPluginConstants.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Common/src/triggerstandalonebuild/common/iPluginConstants.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="377" column="48" selection-start="14101" selection-end="14101" vertical-scroll-proportion="0.0">
+            <state line="14" column="57" selection-start="692" selection-end="701" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tsaView.jsp" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Server/resources/buildServerResources/tsaView.jsp">
+      <file leaf-file-name="TSAService.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Agent/src/triggerstandalonebuild/agent/TSAService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="34" selection-start="268" selection-end="268" vertical-scroll-proportion="0.075780086">
+            <state line="46" column="99" selection-start="2524" selection-end="2524" vertical-scroll-proportion="0.5100865">
               <folding />
             </state>
           </provider>
@@ -111,43 +111,7 @@
       <file leaf-file-name="tsaEdit.jsp" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Server/resources/buildServerResources/tsaEdit.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="12" selection-start="988" selection-end="988" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TSABuildType.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Server/src/triggerstandalonebuild/server/TSABuildType.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="57" column="37" selection-start="2389" selection-end="2389" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="build-server-plugin-triggerstandalonebuild.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Server/src/META-INF/build-server-plugin-triggerstandalonebuild.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="29" selection-start="127" selection-end="127" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="teamcity-plugin.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/teamcity-plugin.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="18" selection-start="235" selection-end="235" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="build.properties" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/build.properties">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="141" column="51" selection-start="4752" selection-end="4752" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -165,18 +129,18 @@
       <list>
         <option value="$PROJECT_DIR$/Server/src/META-INF/test.xml" />
         <option value="$PROJECT_DIR$/Server/src/META-INF/build-server-plugin-triggerstandalonebuild.xml" />
-        <option value="$PROJECT_DIR$/Server/resources/buildServerResources/tsaEdit.jsp" />
         <option value="$PROJECT_DIR$/Common/src/iPluginConstants.java" />
-        <option value="$PROJECT_DIR$/Common/src/triggerstandalonebuild/common/iPluginConstants.java" />
         <option value="$PROJECT_DIR$/Agent/src/triggerstandalonebuild/agent/TSAServiceFactory.java" />
         <option value="$PROJECT_DIR$/Agent/src/META-INF/build-agent-plugin-triggerstandalonebuild.xml" />
         <option value="$PROJECT_DIR$/Server/src/triggerstandalonebuild/server/TSABuildType.java" />
-        <option value="$PROJECT_DIR$/Agent/src/triggerstandalonebuild/agent/TSAService.java" />
         <option value="$PROJECT_DIR$/build.xml" />
         <option value="$PROJECT_DIR$/teamcity-plugin.xml" />
         <option value="$PROJECT_DIR$/triggerstandalonebuild.xml" />
         <option value="$PROJECT_DIR$/BuildNodes.txt" />
         <option value="$PROJECT_DIR$/Server/resources/buildServerResources/tsaView.jsp" />
+        <option value="$PROJECT_DIR$/Common/src/triggerstandalonebuild/common/iPluginConstants.java" />
+        <option value="$PROJECT_DIR$/Server/resources/buildServerResources/tsaEdit.jsp" />
+        <option value="$PROJECT_DIR$/Agent/src/triggerstandalonebuild/agent/TSAService.java" />
       </list>
     </option>
   </component>
@@ -212,7 +176,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -263,6 +226,46 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TriggerStandaloneBuildPlugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Plugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TriggerStandaloneBuildPlugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Plugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="resources" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -285,9 +288,86 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TriggerStandaloneBuildPlugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Plugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TriggerStandaloneBuildPlugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Plugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Agent" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TriggerStandaloneBuildPlugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Plugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Agent" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="agent" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TriggerStandaloneBuildPlugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Plugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Agent" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -554,38 +634,14 @@
         <state line="13" column="27" selection-start="1041" selection-end="1041" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Common/src/triggerstandalonebuild/common/iPluginConstants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="39" selection-start="742" selection-end="742" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Agent/src/triggerstandalonebuild/agent/TSAServiceFactory.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="7" column="13" selection-start="302" selection-end="302" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Agent/src/triggerstandalonebuild/agent/TSAService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="123" selection-start="1315" selection-end="1315" vertical-scroll-proportion="0.45375723" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/build.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="31" selection-start="1322" selection-end="1322" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Server/resources/buildServerResources/tsaEdit.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="12" selection-start="988" selection-end="988" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -597,13 +653,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Server/src/triggerstandalonebuild/server/TSABuildType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="57" column="37" selection-start="2389" selection-end="2389" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Server/src/META-INF/build-server-plugin-triggerstandalonebuild.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="2" column="29" selection-start="127" selection-end="127" vertical-scroll-proportion="0.0">
@@ -611,21 +660,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BuildNodes.txt">
+    <entry file="file://$PROJECT_DIR$/Server/resources/buildServerResources/tsaView.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="96" selection-start="96" selection-end="96" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/triggerstandalonebuild.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="377" column="48" selection-start="14101" selection-end="14101" vertical-scroll-proportion="0.0">
+        <state line="3" column="34" selection-start="268" selection-end="268" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Server/resources/buildServerResources/tsaView.jsp">
+    <entry file="file://$PROJECT_DIR$/Server/src/triggerstandalonebuild/server/TSABuildType.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="34" selection-start="268" selection-end="268" vertical-scroll-proportion="0.075780086">
+        <state line="70" column="102" selection-start="3496" selection-end="3526" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Common/src/triggerstandalonebuild/common/iPluginConstants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="57" selection-start="692" selection-end="701" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BuildNotes.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="96" selection-start="96" selection-end="96" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/triggerstandalonebuild.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="287" column="22" selection-start="10730" selection-end="10730" vertical-scroll-proportion="0.27459618">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="48" column="21" selection-start="2151" selection-end="2151" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Server/resources/buildServerResources/tsaEdit.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="141" column="51" selection-start="4752" selection-end="4752" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Agent/src/triggerstandalonebuild/agent/TSAService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="99" selection-start="2524" selection-end="2524" vertical-scroll-proportion="0.5100865">
           <folding />
         </state>
       </provider>

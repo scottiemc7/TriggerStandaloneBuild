@@ -12,11 +12,14 @@ namespace TriggerStandaloneConsole
 
 	interface IStandaloneBuilder
 	{
-		//void AddProgressListener();
+		event ProgressEventHandler ProgressEvent;
 		Dictionary<BuildPlatform, System.IO.MemoryStream> BuildForPlatforms(BuildPlatform platforms, MemoryStream source, PlatformResources resources);
 	}
 
-	public class BuildFailureException : Exception
-	{
+	public class BuildFailureException : Exception {
+		public BuildFailureException() : base() { }
+		public BuildFailureException(string message) : base(message) { }
 	}
+
+	public delegate void ProgressEventHandler(string message);
 }
