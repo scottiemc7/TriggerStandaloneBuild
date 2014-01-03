@@ -1,4 +1,3 @@
-
 Trigger Standalone Build
 ======================
 Looking for the [command-line plugin](https://github.com/scottiemc7/TriggerCommandLineBuild "Command Line Version")?  
@@ -15,7 +14,7 @@ A [TeamCity](http://www.jetbrains.com/teamcity/ "TeamCity") plugin for the [Trig
 Windows + .Net Framework 4.5
 
 ## Installation:
-1.  Download [triggerstandalone.zip](https://github.com/scottiemc7/TriggerStandaloneeBuild/raw/master/triggerstandalone.zip "Plugin")  
+1.  Download [triggerstandalonebuild.zip](https://github.com/scottiemc7/TriggerStandaloneBuild/raw/master/triggerstandalonebuild.zip "Plugin")  
 2.  Shutdown the TeamCity server.  
 3.  Copy the zip archive with the plugin into the <TeamCity Data Directory>/plugins directory.  
 4.  Start the TeamCity server: the plugin files will be unpacked and processed automatically.  
