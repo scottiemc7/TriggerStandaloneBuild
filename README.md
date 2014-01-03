@@ -1,6 +1,10 @@
-TriggerStandaloneBuild
+
+Trigger Standalone Build
 ======================
-A [TeamCity](http://www.jetbrains.com/teamcity/ "TeamCity") plugin for the [Trigger.io](http://www.trigger.io "Trigger.io") standalone build service
+Looking for the [command-line plugin](https://github.com/scottiemc7/TriggerCommandLineBuild "Command Line Version")?  
+
+A [TeamCity](http://www.jetbrains.com/teamcity/ "TeamCity") plugin for the [Trigger.io](http://www.trigger.io "Trigger.io") standalone build service  
+
 
     Scott McClure
     scottie_DOT_mcclure@gmail.com
@@ -8,17 +12,17 @@ A [TeamCity](http://www.jetbrains.com/teamcity/ "TeamCity") plugin for the [Trig
 ![Screenshot png](https://github.com/scottiemc7/TriggerStandaloneBuild/raw/master/Screenshot.png "Standalone Build Runner")
 
 ## Agent Requirements:
-Windows with .Net Framework 4.5
+Windows + .Net Framework 4.5
 
 ## Installation:
-1.Download `triggerstandalone.zip`  
-2.Shutdown the TeamCity server.  
-3.Copy the zip archive with the plugin into the <TeamCity Data Directory>/plugins directory.  
-4.Start the TeamCity server: the plugin files will be unpacked and processed automatically.  
+1.  Download [triggerstandalone.zip](https://github.com/scottiemc7/TriggerStandaloneeBuild/raw/master/triggerstandalone.zip "Plugin")  
+2.  Shutdown the TeamCity server.  
+3.  Copy the zip archive with the plugin into the <TeamCity Data Directory>/plugins directory.  
+4.  Start the TeamCity server: the plugin files will be unpacked and processed automatically.  
 
 ## Build:
-1.Update path.variable.teamcitydistribution property in `build.properties` to point to your local TeamCity install  
-2.Run Ant against the "dist" target.
+1.  Update path.variable.teamcitydistribution property in `build.properties` to point to your local TeamCity install  
+2.  Run Ant against the "dist" target.
 
 ## License:
 The MIT License (MIT)
