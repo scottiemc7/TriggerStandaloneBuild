@@ -26,7 +26,7 @@
     </target>
 
     <target name="define.version">
-        <property name="plugin.version" value="1.1.0"/>
+        <property name="plugin.version" value="1.1.1"/>
     </target>
     <!--<target name="define.version" depends="define.version.if.under.teamcity">
         <tstamp>

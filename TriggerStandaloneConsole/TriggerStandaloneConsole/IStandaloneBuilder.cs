@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace TriggerStandaloneConsole
 {
-	[Flags]
 	public enum BuildPlatform { Android = 1, iOS = 2 };
 
 	interface IStandaloneBuilder
