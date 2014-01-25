@@ -69,6 +69,9 @@ public class TSABuildType extends RunType {
                     //check key password
                     if(!keyExistsAndHasValue(iPluginConstants.PROPERTYKEY_ANDROIDKEYPASSWORD, properties))
                         err.add(0, new InvalidProperty(iPluginConstants.PROPERTYKEY_ANDROIDKEYPASSWORD, "Key password required"));
+                    //check package name
+                    if(!packageNameValid(iPluginConstants.PROPERTYKEY_ANDROIDPACKAGENAME, properties))
+                        err.add(0, new InvalidProperty(iPluginConstants.PROPERTYKEY_ANDROIDPACKAGENAME, "Invalid package name"));
                 }//end if
 
                 if(iOSSelected) {
@@ -81,9 +84,25 @@ public class TSABuildType extends RunType {
                     //check certificate path
                     if(!keyExistsAndHasValue(iPluginConstants.PROPERTYKEY_IOSPROFILEPATH, properties))
                         err.add(0, new InvalidProperty(iPluginConstants.PROPERTYKEY_IOSPROFILEPATH, "Invalid profile path"));
+                    //check package name
+                    if(!packageNameValid(iPluginConstants.PROPERTYKEY_IOSPACKAGENAME, properties))
+                        err.add(0, new InvalidProperty(iPluginConstants.PROPERTYKEY_IOSPACKAGENAME, "Invalid package name"));
                 }//end if
 
                 return err;
+            }
+
+            private boolean packageNameValid(String key, Map<String, String> properties) {
+                if(properties.containsKey(key)) {
+                    String val = properties.get(key);
+                    if(!isEmptyOrNull(val)) {
+                        val = val.toLowerCase();
+                        if(val.endsWith(".ipa") || val.endsWith(".apk"))
+                            return false;
+                    }//end if
+                }//end if
+
+                return true;
             }
 
             private boolean keyExistsAndHasValueEqualTo(String key, String value, Map<String, String> properties) {

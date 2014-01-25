@@ -46,6 +46,9 @@ public class TSAService extends CommandLineBuildService {
             String ignore = parameters.get(iPluginConstants.PROPERTYKEY_ANDROIDIGNOREPATH);
             if(ignore != null && ignore.compareToIgnoreCase("null") != 0 && ignore.length() > 0)
                 result.add("--androidignore=" + parameters.get(iPluginConstants.PROPERTYKEY_ANDROIDIGNOREPATH));
+            String pkgname = parameters.get(iPluginConstants.PROPERTYKEY_ANDROIDPACKAGENAME);
+            if(pkgname != null && pkgname.compareToIgnoreCase("null") != 0 && pkgname.length() > 0)
+                result.add("--androidname=" + parameters.get(iPluginConstants.PROPERTYKEY_ANDROIDPACKAGENAME));
         }//end if
 
         String ios = parameters.get(iPluginConstants.PROPERTYKEY_PLATFORM_IOS);
@@ -57,6 +60,9 @@ public class TSAService extends CommandLineBuildService {
             String ignore = parameters.get(iPluginConstants.PROPERTYKEY_IOSIGNOREPATH);
             if(ignore != null && ignore.compareToIgnoreCase("null") != 0 && ignore.length() > 0)
                 result.add("--iosignore=" + parameters.get(iPluginConstants.PROPERTYKEY_IOSIGNOREPATH));
+            String pkgname = parameters.get(iPluginConstants.PROPERTYKEY_IOSPACKAGENAME);
+            if(pkgname != null && pkgname.compareToIgnoreCase("null") != 0 && pkgname.length() > 0)
+                result.add("--iosname=" + parameters.get(iPluginConstants.PROPERTYKEY_IOSPACKAGENAME));
         }//end if
 
         return result;

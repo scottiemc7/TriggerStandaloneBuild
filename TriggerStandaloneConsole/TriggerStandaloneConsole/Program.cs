@@ -134,14 +134,14 @@ namespace TriggerStandaloneConsole
 				{
 					byte[] buff = new byte[successfulBuilds[BuildPlatform.Android].Length];
 					successfulBuilds[BuildPlatform.Android].Read(buff, 0, buff.Length);
-					File.WriteAllBytes(String.Format("{0}\\android.apk", options.DownloadPath), buff);
+					File.WriteAllBytes(String.Format("{0}\\{1}.apk", options.DownloadPath, String.IsNullOrEmpty(options.AndroidPackageName) ? "android" : options.AndroidPackageName), buff);
 				}
 
 				if (successfulBuilds.ContainsKey(BuildPlatform.iOS))
 				{
 					byte[] buff = new byte[successfulBuilds[BuildPlatform.iOS].Length];
 					successfulBuilds[BuildPlatform.iOS].Read(buff, 0, buff.Length);
-					File.WriteAllBytes(String.Format("{0}\\ios.ipa", options.DownloadPath), buff);
+                    File.WriteAllBytes(String.Format("{0}\\{1}.ipa", options.DownloadPath, String.IsNullOrEmpty(options.iOSPackageName) ? "ios" : options.iOSPackageName), buff);
 				}
 			}
 			catch (Exception e)

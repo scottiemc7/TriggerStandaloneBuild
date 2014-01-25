@@ -106,6 +106,17 @@
 
 <tr>
     <th>
+        <label for="tsa.andpackage">Android package name: </label>
+    </th>
+    <td>
+        <props:textProperty name="tsa.andpackage" size="75" />
+        <span class="error" id="error_tsa.andpackage"></span>
+        <span class="smallNote">Name for the package without extension</span>
+    </td>
+</tr>
+
+<tr>
+    <th>
         <label for="tsa.ioscert">iOS certficate path: </label>
     </th>
     <td>
@@ -145,6 +156,17 @@
         <props:textProperty name="tsa.iosignore" size="75" />
         <span class="error" id="error_tsa.iosignore"></span>
         <span class="smallNote">Paths to directories to exclude from iOS builds, relative to the src directory. Multiple paths can be separated by a semi-colon.</span>
+    </td>
+</tr>
+
+<tr>
+    <th>
+        <label for="tsa.iospackage">iOS package name: </label>
+    </th>
+    <td>
+        <props:textProperty name="tsa.iospackage" size="75" />
+        <span class="error" id="error_tsa.iospackage"></span>
+        <span class="smallNote">Name for the package without extension</span>
     </td>
 </tr>
 
