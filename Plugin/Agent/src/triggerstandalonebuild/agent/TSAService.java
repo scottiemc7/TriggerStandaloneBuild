@@ -65,6 +65,10 @@ public class TSAService extends CommandLineBuildService {
                 result.add("--iosname=" + parameters.get(iPluginConstants.PROPERTYKEY_IOSPACKAGENAME));
         }//end if
 
+        String configKeys = parameters.get(iPluginConstants.PROPERTYKEY_CONFIGKEYS);
+        if(configKeys != null && configKeys.length() > 0)
+            result.add("--configkeys=" + configKeys);
+
         return result;
     }
 }

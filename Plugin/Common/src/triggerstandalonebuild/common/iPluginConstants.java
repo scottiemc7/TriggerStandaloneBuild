@@ -8,6 +8,8 @@ public interface iPluginConstants {
     String PROPERTYKEY_SRCPATH = "tsa.src";
     String PROPERTYKEY_PLATFORM_ANDROID = "tsa.platform.and";
     String PROPERTYKEY_PLATFORM_IOS = "tsa.platform.ios";
+    String PROPERTYKEY_CONFIGKEYS = "tsa.configkeys";
+
     String PROPERTYKEY_ANDROIDKEYSTOREPATH = "tsa.andkeystore";
     String PROPERTYKEY_ANDROIDKEYSTOREPASSWORD = "tsa.andkeystorepass";
     String PROPERTYKEY_ANDROIDKEYALIAS = "tsa.andkeyalias";

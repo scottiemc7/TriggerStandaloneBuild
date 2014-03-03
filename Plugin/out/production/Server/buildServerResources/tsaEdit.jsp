@@ -170,3 +170,16 @@
     </td>
 </tr>
 
+<hr>
+
+   <tr>
+       <th>
+           <label for="tsa.configkeys">Configuration key/value pairs: </label>
+       </th>
+       <td>
+           <props:textProperty name="tsa.configkeys" size="75" />
+           <span class="error" id="error_tsa.configkeys"></span>
+           <span class="smallNote">Key/value pairs to be replaced in config.json. Key/values should be separated by a comma. Multiple key/value pairs should be separate by a semi-colon.</span>
+           <span class="smallNote">Example: key1,value1;full\path\to\key2,value2</span>
+       </td>
+   </tr>

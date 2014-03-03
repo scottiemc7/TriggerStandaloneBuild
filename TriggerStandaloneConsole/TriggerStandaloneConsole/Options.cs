@@ -61,6 +61,9 @@ namespace TriggerStandaloneConsole
         [Option('t', "androidname", Required = false, HelpText = "Android Package Name")]
         public string AndroidPackageName { get; set; }
 
+		[Option('u', "configkeys", Required = false, HelpText = "Configuration Key/Value Pairs")]
+		public string ConfigKeys { get; set; }
+
 		[ParserState]
 		public IParserState LastParserState { get; set; }
 

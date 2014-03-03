@@ -57,8 +57,10 @@
     <Compile Include="HttpWebRequestFactory.cs" />
     <Compile Include="HttpWebRequestWrapper.cs" />
     <Compile Include="IHttpWebRequest.cs" />
+    <Compile Include="IJSONValueSwapper.cs" />
     <Compile Include="IStandaloneBuilder.cs" />
     <Compile Include="IZip.cs" />
+    <Compile Include="JSONValueSwapper.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="PlatformResources.cs" />
     <Compile Include="Program.cs" />

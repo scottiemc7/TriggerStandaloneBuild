@@ -24,7 +24,7 @@ namespace TriggerStandaloneConsole
 			var options = new Options();
             if (!CommandLine.Parser.Default.ParseArguments(args, options))
             {
-                ProgressEndBuild(false, "Argument failure");
+                ProgressEndBuild(false, String.Format("Argument failure - {0}", options.LastParserState.Errors[0].ToString()));
                 return;
             }//end if
 
@@ -58,6 +58,7 @@ namespace TriggerStandaloneConsole
 								!File.Exists(options.iOSCertificatePath) ||
 								String.IsNullOrEmpty(options.iOSProfilePath)))
 			{
+				ProgressEndBuild(false, "Argument failure");
 				Console.WriteLine("At least one iOS required argument is missing or file could not be found");
 				return;
 			}//end if
@@ -86,6 +87,26 @@ namespace TriggerStandaloneConsole
 				resources.iOSCertificateFileName = Path.GetFileName(options.iOSCertificatePath);
 				resources.iOSProfile = new MemoryStream(File.ReadAllBytes(options.iOSProfilePath));
 				resources.iOSProfileFileName = Path.GetFileName(options.iOSProfilePath);
+			}//end if
+
+			//swap out config keys, if necessary
+			if(!String.IsNullOrEmpty(options.ConfigKeys)) 
+			{
+				string configPath = options.SrcPath + "\\config.json";
+				Console.WriteLine(String.Format("config.json path: {0}", configPath));
+				IJSONValueSwapper swapper = new JSONValueSwapper(File.ReadAllText(configPath));
+				string[] keyPairs = options.ConfigKeys.Split(';');
+				foreach (string keyPair in keyPairs)
+				{
+					string[] keyAndValue = keyPair.Split(',');
+					if (keyAndValue.Length == 2)
+					{
+						Console.WriteLine(String.Format("Swapping value {0} for key {1} in config.json", keyAndValue[1], keyAndValue[0]));
+						swapper.Swap(keyAndValue[0], keyAndValue[1]);
+					}//end if
+				}//end foreach
+
+				File.WriteAllText(configPath, swapper.ToString());
 			}//end if
 
 			//use multiple sources if we are building for more than one platform
