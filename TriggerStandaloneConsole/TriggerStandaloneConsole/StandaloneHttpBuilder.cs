@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Script.Serialization;
 
 namespace TriggerStandaloneConsole
@@ -80,10 +81,19 @@ namespace TriggerStandaloneConsole
 				}//end using
 				
 				var postResult = jsSerializer.DeserializeObject(sb.ToString()) as Dictionary<string, object>;
-				if (!postResult.ContainsKey("result") || String.Compare(postResult["result"].ToString(), "ok", true) != 0 || !postResult.ContainsKey("id"))
-					throw new BuildFailureException();
-				
-				monitorURL = String.Format("{0}/{1}?email={2}&password={3}", _monitorURL, postResult["id"].ToString(), _email, _password);
+                if (!postResult.ContainsKey("result") || String.Compare(postResult["result"].ToString(), "ok", true) != 0 || !postResult.ContainsKey("id")) {
+                    Array errors = ((Dictionary<string, object>)postResult["errors"])["__all__"] as Array;
+                    StringBuilder sbError = new StringBuilder();
+                    if (errors != null) 
+                    {
+                        foreach (string error in errors)
+                            sbError.Append(error + " ");
+                    }
+
+                    throw new BuildFailureException(sbError.ToString());
+                }
+
+                monitorURL = String.Format("{0}/{1}?email={2}&password={3}", _monitorURL, postResult["id"].ToString(), HttpUtility.UrlEncode(_email), HttpUtility.UrlEncode(_password));
 			}//end using
 
 			FireProgressEvent(String.Format("Monitoring - {0}", platformString));
@@ -124,6 +134,7 @@ namespace TriggerStandaloneConsole
 					else if (String.Compare(state, "failure", true) == 0)
 					{						
 						String msg = "Build failure";
+                        //TODO: Spit out the whole reason, including stack trace if we can get it from the server
 						throw new BuildFailureException(msg);
 					}
 					else if (String.Compare(state, "pending", true) != 0) //not pending, unknown status
