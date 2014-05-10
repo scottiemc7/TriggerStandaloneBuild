@@ -180,14 +180,27 @@ namespace TriggerStandaloneConsole
 
 		private static void ProgressEndBuild(bool success, string msg)
 		{
+            msg = EscapeString(msg);
 			Console.WriteLine(String.Format("##teamcity[progressFinish 'Build Finished With {0}']", success ? "SUCCESS" : "FAILURE"));
 			Console.WriteLine(String.Format("##teamcity[buildStatus status='{1}' text='{0}']", msg, success ? "SUCCESS" : "FAILURE"));
 		}
 
 		private static void ProgressMessage(string msg)
 		{
+            msg = EscapeString(msg);
 			Console.WriteLine(String.Format("##teamcity[progressMessage '{0}']", msg));
 		}
+        
+        private static string EscapeString(string str)
+        {
+            return str
+                .Replace("'", "|'")
+                .Replace("\\n", "|n")
+                .Replace("\\r", "|r")
+                .Replace("|", "||")
+                .Replace("[", "|[")
+                .Replace("]", "|]");
+        }
 
 		static void builder_ProgressEvent(string message)
 		{
