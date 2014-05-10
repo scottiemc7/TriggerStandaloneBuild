@@ -33,7 +33,7 @@ public class TSAService extends CommandLineBuildService {
         List<String> result = new ArrayList<String>();
 
         result.add("--email=" + parameters.get(iPluginConstants.PROPERTYKEY_EMAIL));
-        result.add("--password=" + parameters.get(iPluginConstants.PROPERTYKEY_PASSWORD));
+        result.add("--password= " + parameters.get(iPluginConstants.PROPERTYKEY_PASSWORD));
         result.add("--src=" + getBuild().getCheckoutDirectory() + parameters.get(iPluginConstants.PROPERTYKEY_SRCPATH));
         result.add("--download=" + getBuild().getCheckoutDirectory());
         String android = parameters.get(iPluginConstants.PROPERTYKEY_PLATFORM_ANDROID);
