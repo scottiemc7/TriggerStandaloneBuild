@@ -32,8 +32,9 @@ public class TSAService extends CommandLineBuildService {
         Map<String,String> parameters = getBuild().getRunnerParameters();
         List<String> result = new ArrayList<String>();
 
+        //important: leave space after = in password fields, so teamcity can find/replace passwords in log
         result.add("--email=" + parameters.get(iPluginConstants.PROPERTYKEY_EMAIL));
-        result.add("--password= " + parameters.get(iPluginConstants.PROPERTYKEY_PASSWORD));
+        result.add("--password=" + parameters.get(iPluginConstants.PROPERTYKEY_PASSWORD));
         result.add("--src=" + getBuild().getCheckoutDirectory() + parameters.get(iPluginConstants.PROPERTYKEY_SRCPATH));
         result.add("--download=" + getBuild().getCheckoutDirectory());
         String android = parameters.get(iPluginConstants.PROPERTYKEY_PLATFORM_ANDROID);
